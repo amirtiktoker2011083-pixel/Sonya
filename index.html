@@ -13,7 +13,7 @@ body {
   overflow-x: hidden;
 }
 
-/* кнопка */
+/* кнопка сверху */
 .center {
   display: flex;
   justify-content: center;
@@ -28,6 +28,11 @@ button {
   background: hotpink;
   color: white;
   cursor: pointer;
+}
+
+button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px hotpink;
 }
 
 /* фотки */
@@ -58,16 +63,16 @@ button {
   border-radius: 20px;
   background: rgba(255,255,255,0.05);
   backdrop-filter: blur(10px);
-  text-align: center;
 }
 
 .playlist {
+  text-align: center;
   font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   text-shadow: 0 0 15px white;
 }
 
+/* треки */
 .track {
   padding: 12px;
   margin: 10px 0;
@@ -81,12 +86,12 @@ button {
   background: hotpink;
 }
 
-/* 🎛 управление ПОД ТРЕКОМ */
+/* 🎛 управление */
 .controls {
-  margin-top: 10px;
   display: none;
   justify-content: center;
-  gap: 10px;
+  gap: 18px;
+  margin: 10px 0;
 
   animation: drop 0.3s ease;
 }
@@ -95,21 +100,29 @@ button {
   display: flex;
 }
 
-.controls button {
-  padding: 8px 14px;
-  font-size: 14px;
-  border-radius: 8px;
-  border: none;
-  background: rgba(255,255,255,0.2);
-  color: white;
+/* 💗 РОЗОВЫЕ КНОПКИ */
+.controls span {
+  font-size: 26px;
   cursor: pointer;
+
+  color: hotpink;
+
+  text-shadow:
+    0 0 8px hotpink,
+    0 0 15px hotpink;
+
+  transition: 0.3s;
 }
 
-.controls button:hover {
-  background: hotpink;
+.controls span:hover {
+  transform: scale(1.4);
+  text-shadow:
+    0 0 12px hotpink,
+    0 0 25px hotpink,
+    0 0 40px hotpink;
 }
 
-/* анимация */
+/* анимация появления */
 @keyframes drop {
   from {
     transform: translateY(-10px);
@@ -156,42 +169,17 @@ button {
 <div class="player">
   <div class="playlist">playlist</div>
 
-  <div class="track" onclick="playTrack(0)">
-    mayle
-    <div class="controls">
-      <button onclick="prev(event)">назад</button>
-      <button onclick="toggle(event)">пауза</button>
-      <button onclick="next(event)">вперёд</button>
-    </div>
+  <div class="track" onclick="playTrack(0)">mayle</div>
+
+  <div class="controls" id="controls">
+    <span onclick="prev()">⏮</span>
+    <span onclick="toggle()">⏯</span>
+    <span onclick="next()">⏭</span>
   </div>
 
-  <div class="track" onclick="playTrack(1)">
-    ты похож на кота
-    <div class="controls">
-      <button onclick="prev(event)">назад</button>
-      <button onclick="toggle(event)">пауза</button>
-      <button onclick="next(event)">вперёд</button>
-    </div>
-  </div>
-
-  <div class="track" onclick="playTrack(2)">
-    ты не такая
-    <div class="controls">
-      <button onclick="prev(event)">назад</button>
-      <button onclick="toggle(event)">пауза</button>
-      <button onclick="next(event)">вперёд</button>
-    </div>
-  </div>
-
-  <div class="track" onclick="playTrack(3)">
-    у девчонок
-    <div class="controls">
-      <button onclick="prev(event)">назад</button>
-      <button onclick="toggle(event)">пауза</button>
-      <button onclick="next(event)">вперёд</button>
-    </div>
-  </div>
-
+  <div class="track" onclick="playTrack(1)">ты похож на кота</div>
+  <div class="track" onclick="playTrack(2)">ты не такая</div>
+  <div class="track" onclick="playTrack(3)">у девчонок</div>
 </div>
 
 <audio id="audio"></audio>
@@ -207,6 +195,7 @@ const tracks = [
 let current = 0;
 const audio = document.getElementById("audio");
 const trackEls = document.querySelectorAll(".track");
+const controls = document.getElementById("controls");
 
 function playTrack(index) {
   current = index;
@@ -214,30 +203,24 @@ function playTrack(index) {
   audio.src = tracks[index];
   audio.play();
 
-  trackEls.forEach(t => {
-    t.classList.remove("active");
-    t.querySelector(".controls").classList.remove("show");
-  });
+  trackEls.forEach(t => t.classList.remove("active"));
+  trackEls[index].classList.add("active");
 
-  const active = trackEls[index];
-  active.classList.add("active");
-  active.querySelector(".controls").classList.add("show");
+  trackEls[index].after(controls);
+  controls.classList.add("show");
 }
 
-function toggle(e) {
-  e.stopPropagation();
+function toggle() {
   if (audio.paused) audio.play();
   else audio.pause();
 }
 
-function next(e) {
-  e.stopPropagation();
+function next() {
   current = (current + 1) % tracks.length;
   playTrack(current);
 }
 
-function prev(e) {
-  e.stopPropagation();
+function prev() {
   current = (current - 1 + tracks.length) % tracks.length;
   playTrack(current);
 }

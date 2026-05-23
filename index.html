@@ -13,13 +13,35 @@ body {
   overflow-x: hidden;
 }
 
+/* верх */
+.center {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+button {
+  padding: 20px 60px;
+  font-size: 22px;
+  border-radius: 15px;
+  border: none;
+  background: hotpink;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px hotpink;
+}
+
 /* галерея */
 .gallery {
+  margin-top: 80px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 80px;
-  margin-top: 80px;
+  gap: 100px;
 }
 
 /* карточки */
@@ -35,9 +57,44 @@ body {
   box-shadow: 0 0 25px pink;
 }
 
-.card p {
-  margin-bottom: 10px;
-  font-size: 20px;
+/* позиции */
+.left {
+  margin-left: 10%;
+}
+
+.right {
+  margin-left: auto;
+  margin-right: 10%;
+}
+
+/* 🎵 ПЛЕЕР */
+.player {
+  text-align: center;
+  margin-top: 120px;
+  margin-bottom: 60px;
+}
+
+/* линия */
+.line {
+  width: 200px;
+  height: 3px;
+  background: white;
+  margin: 20px auto;
+
+  box-shadow:
+    0 0 10px white,
+    0 0 20px white,
+    0 0 30px white;
+}
+
+/* текст */
+.playlist {
+  font-size: 24px;
+  font-weight: bold;
+
+  text-shadow:
+    0 0 10px white,
+    0 0 20px white;
 }
 
 /* 🌸 сакура */
@@ -60,22 +117,46 @@ body {
 
 <body>
 
+<!-- кнопка -->
+<div class="center">
+  <button onclick="window.location.href='https://t.me/Conechka22056'">
+    люблю соню
+  </button>
+</div>
+
+<!-- фотки -->
 <div class="gallery">
 
-  <div class="card">
+  <div class="card left">
     <p>няшка</p>
     <img src="IMG_20260523_201659_341.jpg">
   </div>
 
-  <div class="card">
+  <div class="card right">
     <p>снежная красавица</p>
     <img src="IMG_20260523_201702_994.jpg">
   </div>
 
-  <div class="card">
+  <div class="card left">
     <p>агентка</p>
     <img src="IMG_20260523_201704_693.jpg">
   </div>
+
+</div>
+
+<!-- 🎵 плеер -->
+<div class="player">
+
+  <!-- сам трек -->
+  <audio controls>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- линия -->
+  <div class="line"></div>
+
+  <!-- текст -->
+  <div class="playlist">playlist</div>
 
 </div>
 

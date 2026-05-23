@@ -13,24 +13,23 @@ body {
   overflow-x: hidden;
 }
 
-/* Заголовок */
+/* заголовок */
 h1 {
   text-align: center;
   margin-top: 30px;
-  font-size: 30px;
 }
 
-/* КНОПКА */
+/* кнопка */
 .center {
   display: flex;
   justify-content: center;
-  margin-top: 100px;
+  margin-top: 60px;
 }
 
 button {
-  padding: 30px 80px;
-  font-size: 30px;
-  border-radius: 20px;
+  padding: 25px 60px;
+  font-size: 25px;
+  border-radius: 15px;
   border: none;
   background: white;
   cursor: pointer;
@@ -38,19 +37,16 @@ button {
 }
 
 button:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
   background: pink;
 }
 
 /* ГАЛЕРЕЯ */
 .gallery {
-  margin-top: 120px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  margin-top: 100px;
 }
 
-/* РЯД (лево / право) */
+/* строка (фото + линия) */
 .row {
   display: flex;
   align-items: center;
@@ -58,6 +54,7 @@ button:hover {
   margin: 80px 0;
 }
 
+/* лево / право */
 .left {
   justify-content: flex-start;
   padding-left: 10%;
@@ -68,9 +65,9 @@ button:hover {
   padding-right: 10%;
 }
 
-/* КАРТОЧКА */
+/* карточка */
 .card {
-  width: 260px;
+  width: 250px;
   text-align: center;
 }
 
@@ -78,56 +75,41 @@ button:hover {
   width: 100%;
   border-radius: 15px;
   border: 3px solid white;
-  box-shadow: 0 0 25px pink;
-}
-
-.card p {
-  margin-bottom: 10px;
-  font-size: 20px;
+  box-shadow: 0 0 20px pink;
 }
 
 /* ЛИНИЯ */
 .line {
   width: 150px;
   height: 2px;
-  margin: 0 20px;
-  position: relative;
-  background: transparent;
-}
-
-.line::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 2px;
-  width: 100%;
   background: white;
   box-shadow: 0 0 10px white;
+  margin: 0 20px;
 
   transform: scaleX(0);
   transform-origin: left;
-  animation: drawLine 1.2s ease forwards;
+  animation: draw 1.2s forwards;
 }
 
-@keyframes drawLine {
+@keyframes draw {
   to {
     transform: scaleX(1);
   }
 }
 
-/* СЕРДЕЧКИ */
-.heart {
+/* САКУРА */
+.sakura {
   position: fixed;
   top: -10px;
+  font-size: 18px;
   color: pink;
-  font-size: 20px;
-  animation: fall linear infinite;
+  pointer-events: none;
+  animation: fall linear forwards;
 }
 
 @keyframes fall {
   to {
-    transform: translateY(110vh);
+    transform: translateY(110vh) rotate(360deg);
     opacity: 0;
   }
 }
@@ -173,22 +155,24 @@ button:hover {
 </div>
 
 <script>
-function createHeart() {
-  const heart = document.createElement("div");
-  heart.classList.add("heart");
-  heart.innerHTML = "💗";
+/* 💗 сакура */
+function sakura() {
+  const el = document.createElement("div");
+  el.classList.add("sakura");
+  el.innerHTML = "🌸";
 
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+  el.style.left = Math.random() * 100 + "vw";
+  el.style.animationDuration = (Math.random() * 3 + 3) + "s";
+  el.style.fontSize = (Math.random() * 15 + 10) + "px";
 
-  document.body.appendChild(heart);
+  document.body.appendChild(el);
 
   setTimeout(() => {
-    heart.remove();
-  }, 5000);
+    el.remove();
+  }, 6000);
 }
 
-setInterval(createHeart, 200);
+setInterval(sakura, 200);
 </script>
 
 </body>

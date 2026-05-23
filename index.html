@@ -1,67 +1,110 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Люблю Соню</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: black;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
-      color: white;
-      text-align: center;
-    }
+<meta charset="UTF-8">
+<title>Love</title>
 
-    h1 {
-      margin-top: 30px;
-      font-size: 28px;
-    }
+<style>
+body {
+  margin: 0;
+  background: black;
+  font-family: Arial;
+  color: white;
+  overflow-x: hidden;
+}
 
-    .center {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
+/* Заголовок */
+h1 {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 30px;
+}
 
-    button {
-      padding: 20px 40px;
-      font-size: 20px;
-      border: none;
-      border-radius: 10px;
-      background: white;
-      color: black;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+/* КНОПКА */
+.center {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+}
 
-    button:hover {
-      background: pink;
-      transform: scale(1.1);
-    }
+button {
+  padding: 30px 80px;
+  font-size: 30px;
+  border-radius: 20px;
+  border: none;
+  background: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
 
-    /* Сердечки */
-    .heart {
-      position: absolute;
-      color: pink;
-      font-size: 20px;
-      animation: fall linear infinite;
-    }
+button:hover {
+  transform: scale(1.2);
+  background: pink;
+}
 
-    @keyframes fall {
-      0% {
-        transform: translateY(-10vh);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(110vh);
-        opacity: 0;
-      }
-    }
-  </style>
+/* ФОТО БЛОК */
+.gallery {
+  margin-top: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 100px;
+}
+
+.card {
+  width: 260px;
+  text-align: center;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 15px;
+  border: 3px solid white;
+  box-shadow: 0 0 25px pink;
+}
+
+.card p {
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+/* ЛЕВО-ПРАВО */
+.left {
+  align-self: flex-start;
+  margin-left: 10%;
+}
+
+.right {
+  align-self: flex-end;
+  margin-right: 10%;
+}
+
+/* ЛИНИИ */
+.line {
+  width: 200px;
+  height: 2px;
+  background: white;
+  box-shadow: 0 0 10px white;
+}
+
+/* СЕРДЕЧКИ */
+.heart {
+  position: fixed;
+  top: -10px;
+  color: pink;
+  font-size: 20px;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh);
+    opacity: 0;
+  }
+}
+</style>
 </head>
+
 <body>
 
 <h1>твой любимый Амир</h1>
@@ -72,24 +115,46 @@
   </button>
 </div>
 
+<div class="gallery">
+
+  <div class="card left">
+    <p>няшка</p>
+    <img src="IMG_20260523_201659_341.jpg">
+  </div>
+
+  <div class="line"></div>
+
+  <div class="card right">
+    <p>снежная красавица</p>
+    <img src="IMG_20260523_201702_994.jpg">
+  </div>
+
+  <div class="line"></div>
+
+  <div class="card left">
+    <p>агентка</p>
+    <img src="IMG_20260523_201704_693.jpg">
+  </div>
+
+</div>
+
 <script>
-  function createHeart() {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "💗";
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "💗";
 
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
-    heart.style.fontSize = (Math.random() * 10 + 15) + "px";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
 
-    document.body.appendChild(heart);
+  document.body.appendChild(heart);
 
-    setTimeout(() => {
-      heart.remove();
-    }, 5000);
-  }
+  setTimeout(() => {
+    heart.remove();
+  }, 5000);
+}
 
-  setInterval(createHeart, 200);
+setInterval(createHeart, 200);
 </script>
 
 </body>

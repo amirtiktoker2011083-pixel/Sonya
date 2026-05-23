@@ -30,11 +30,6 @@ button {
   cursor: pointer;
 }
 
-button:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 20px hotpink;
-}
-
 /* фотки */
 .gallery {
   margin-top: 80px;
@@ -43,9 +38,7 @@ button:hover {
   gap: 100px;
 }
 
-.card {
-  width: 260px;
-}
+.card { width: 260px; }
 
 .card img {
   width: 100%;
@@ -54,26 +47,17 @@ button:hover {
   box-shadow: 0 0 25px pink;
 }
 
-.left {
-  margin-left: 10%;
-}
-
-.right {
-  margin-left: auto;
-  margin-right: 10%;
-}
+.left { margin-left: 10%; }
+.right { margin-left: auto; margin-right: 10%; }
 
 /* 🎵 плеер */
 .player {
   width: 320px;
-  margin: 120px auto 60px;
+  margin: 120px auto;
   padding: 20px;
   border-radius: 20px;
-
   background: rgba(255,255,255,0.05);
   backdrop-filter: blur(10px);
-
-  box-shadow: 0 0 20px rgba(255,255,255,0.2);
   text-align: center;
 }
 
@@ -81,10 +65,7 @@ button:hover {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 15px;
-
-  text-shadow:
-    0 0 10px white,
-    0 0 20px white;
+  text-shadow: 0 0 15px white;
 }
 
 .track {
@@ -92,13 +73,44 @@ button:hover {
   margin: 10px 0;
   border-radius: 10px;
   cursor: pointer;
-
   background: rgba(255,255,255,0.1);
-  transition: 0.3s;
 }
 
-.track:hover {
-  background: rgba(255,255,255,0.2);
+.track.active {
+  background: hotpink;
+}
+
+/* 🎛 панель управления */
+.controls {
+  position: fixed;
+  bottom: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 320px;
+  padding: 15px;
+  border-radius: 20px;
+
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  transition: 0.5s;
+}
+
+.controls.show {
+  bottom: 20px;
+}
+
+.controls button {
+  padding: 10px 15px;
+  font-size: 20px;
+  border-radius: 10px;
+  border: none;
+  background: white;
+  cursor: pointer;
 }
 
 /* 🌸 сакура */
@@ -121,65 +133,73 @@ button:hover {
 
 <body>
 
-<!-- кнопка -->
 <div class="center">
   <button onclick="window.location.href='https://t.me/Conechka22056'">
     люблю соню
   </button>
 </div>
 
-<!-- фотки -->
 <div class="gallery">
-
-  <div class="card left">
-    <img src="IMG_20260523_201659_341.jpg">
-  </div>
-
-  <div class="card right">
-    <img src="IMG_20260523_201702_994.jpg">
-  </div>
-
-  <div class="card left">
-    <img src="IMG_20260523_201704_693.jpg">
-  </div>
-
+  <div class="card left"><img src="IMG_20260523_201659_341.jpg"></div>
+  <div class="card right"><img src="IMG_20260523_201702_994.jpg"></div>
+  <div class="card left"><img src="IMG_20260523_201704_693.jpg"></div>
 </div>
 
-<!-- 🎵 плеер -->
 <div class="player">
-
   <div class="playlist">playlist</div>
 
-  <div class="track" onclick="playMusic('music.mp3')">
-    mayle
-  </div>
-
-  <div class="track" onclick="playMusic('music1.mp3')">
-    ты похож на кота
-  </div>
-
-  <div class="track" onclick="playMusic('music2.mp3')">
-    ты не такая
-  </div>
-
-  <div class="track" onclick="playMusic('music3.mp3')">
-    у девчонок
-  </div>
-
-  <audio id="audio"></audio>
-
+  <div class="track" onclick="playTrack(0)">mayle</div>
+  <div class="track" onclick="playTrack(1)">ты похож на кота</div>
+  <div class="track" onclick="playTrack(2)">ты не такая</div>
+  <div class="track" onclick="playTrack(3)">у девчонок</div>
 </div>
 
-<script>
-function playMusic(src) {
-  const audio = document.getElementById("audio");
+<!-- 🎛 управление -->
+<div class="controls" id="controls">
+  <button onclick="prev()">⏮</button>
+  <button onclick="toggle()">⏯</button>
+  <button onclick="next()">⏭</button>
+</div>
 
-  if (audio.src.includes(src) && !audio.paused) {
-    audio.pause();
-  } else {
-    audio.src = src;
-    audio.play();
-  }
+<audio id="audio"></audio>
+
+<script>
+const tracks = [
+  "music.mp3",
+  "music1.mp3",
+  "music2.mp3",
+  "music3.mp3"
+];
+
+let current = 0;
+const audio = document.getElementById("audio");
+const controls = document.getElementById("controls");
+const trackEls = document.querySelectorAll(".track");
+
+function playTrack(index) {
+  current = index;
+  audio.src = tracks[index];
+  audio.play();
+
+  controls.classList.add("show");
+
+  trackEls.forEach(el => el.classList.remove("active"));
+  trackEls[index].classList.add("active");
+}
+
+function toggle() {
+  if (audio.paused) audio.play();
+  else audio.pause();
+}
+
+function next() {
+  current = (current + 1) % tracks.length;
+  playTrack(current);
+}
+
+function prev() {
+  current = (current - 1 + tracks.length) % tracks.length;
+  playTrack(current);
 }
 
 /* 🌸 сакура */
@@ -193,7 +213,6 @@ function sakura() {
   el.style.animationDuration = (Math.random() * 5 + 5) + "s";
 
   document.body.appendChild(el);
-
   setTimeout(() => el.remove(), 10000);
 }
 

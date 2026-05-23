@@ -13,112 +13,34 @@ body {
   overflow-x: hidden;
 }
 
-/* контейнер */
-.wrapper {
-  max-width: 1000px;
-  margin: 0 auto;
-  position: relative;
-}
-
-/* верх */
-h1 {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.center {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-button {
-  padding: 18px 50px;
-  font-size: 20px;
-  border-radius: 12px;
-  border: none;
-  background: white;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-button:hover {
-  background: pink;
-  transform: scale(1.1);
-}
-
 /* галерея */
 .gallery {
-  position: relative;
-  height: 900px;
-  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+  margin-top: 80px;
 }
 
 /* карточки */
-.item {
-  position: absolute;
-  width: 220px;
+.card {
+  width: 260px;
   text-align: center;
-  font-weight: bold;
 }
 
-.item img {
+.card img {
   width: 100%;
   border-radius: 15px;
   border: 3px solid white;
-  box-shadow: 0 0 20px pink;
+  box-shadow: 0 0 25px pink;
 }
 
-/* позиции */
-.t1 { left: 60px; top: 60px; }
-.t2 { right: 60px; top: 320px; }
-.t3 { left: 140px; top: 640px; }
-
-/* линии */
-svg {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
+.card p {
+  margin-bottom: 10px;
+  font-size: 20px;
 }
 
-path {
-  stroke: white;
-  stroke-width: 3;
-  fill: none;
-  stroke-linecap: round;
-
-  filter: drop-shadow(0 0 8px white);
-
-  stroke-dasharray: 1500;
-  stroke-dashoffset: 1500;
-
-  animation: draw 2.5s ease forwards;
-}
-
-@keyframes draw {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-/* комплимент */
-.bottom {
-  text-align: center;
-  margin-top: 100px;
-  margin-bottom: 60px;
-
-  font-size: 22px;
-  font-weight: bold;
-  color: white;
-
-  text-shadow:
-    0 0 10px white,
-    0 0 25px white,
-    0 0 40px white;
-}
-
-/* 🌸 САКУРА */
+/* 🌸 сакура */
 .sakura {
   position: fixed;
   top: -20px;
@@ -138,92 +60,41 @@ path {
 
 <body>
 
-<div class="wrapper">
-
-<h1>твой любимый Амир</h1>
-
-<div class="center">
-  <button onclick="window.location.href='https://t.me/Conechka22056'">
-    люблю соню
-  </button>
-</div>
-
 <div class="gallery">
 
-  <div class="item t1" id="t1">
-    няшка
+  <div class="card">
+    <p>няшка</p>
     <img src="IMG_20260523_201659_341.jpg">
   </div>
 
-  <div class="item t2" id="t2">
-    снежная красавица
+  <div class="card">
+    <p>снежная красавица</p>
     <img src="IMG_20260523_201702_994.jpg">
   </div>
 
-  <div class="item t3" id="t3">
-    агентка
+  <div class="card">
+    <p>агентка</p>
     <img src="IMG_20260523_201704_693.jpg">
   </div>
-
-  <svg id="svg"></svg>
-
-</div>
-
-<div class="bottom">
-  Соня — это человек, который делает этот мир теплее, красивее и спокойнее ✨
-</div>
 
 </div>
 
 <script>
-function line(a, b, svg, container) {
-  const r1 = a.getBoundingClientRect();
-  const r2 = b.getBoundingClientRect();
-  const rc = container.getBoundingClientRect();
-
-  const x1 = r1.left + r1.width/2 - rc.left;
-  const y1 = r1.bottom - rc.top;
-
-  const x2 = r2.left + r2.width/2 - rc.left;
-  const y2 = r2.top - rc.top;
-
-  const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-
-  const d = M ${x1} ${y1} C ${x1} ${y1+120}, ${x2} ${y2-120}, ${x2} ${y2};
-  path.setAttribute("d", d);
-
-  svg.appendChild(path);
-}
-
-function draw() {
-  const svg = document.getElementById("svg");
-  const container = document.querySelector(".gallery");
-
-  svg.innerHTML = "";
-
-  line(t1, t2, svg, container);
-  line(t2, t3, svg, container);
-}
-
-window.onload = draw;
-window.onresize = draw;
-
-/* 🌸 САКУРА (НОРМАЛЬНАЯ) */
 function sakura() {
   const el = document.createElement("div");
   el.className = "sakura";
   el.innerHTML = "🌸";
 
   el.style.left = Math.random() * 100 + "vw";
-  el.style.fontSize = (Math.random() * 20 + 20) + "px";
-  el.style.animationDuration = (Math.random() * 4 + 5) + "s";
+  el.style.fontSize = (Math.random() * 25 + 15) + "px";
+  el.style.animationDuration = (Math.random() * 5 + 5) + "s";
 
   document.body.appendChild(el);
 
-  setTimeout(() => el.remove(), 9000);
+  setTimeout(() => el.remove(), 10000);
 }
 
-setInterval(sakura, 120);
+setInterval(sakura, 100);
 </script>
 
 </body>

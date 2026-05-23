@@ -42,15 +42,33 @@ button:hover {
   background: pink;
 }
 
-/* ФОТО БЛОК */
+/* ГАЛЕРЕЯ */
 .gallery {
   margin-top: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 100px;
 }
 
+/* РЯД (лево / право) */
+.row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 80px 0;
+}
+
+.left {
+  justify-content: flex-start;
+  padding-left: 10%;
+}
+
+.right {
+  justify-content: flex-end;
+  padding-right: 10%;
+}
+
+/* КАРТОЧКА */
 .card {
   width: 260px;
   text-align: center;
@@ -68,23 +86,34 @@ button:hover {
   font-size: 20px;
 }
 
-/* ЛЕВО-ПРАВО */
-.left {
-  align-self: flex-start;
-  margin-left: 10%;
-}
-
-.right {
-  align-self: flex-end;
-  margin-right: 10%;
-}
-
-/* ЛИНИИ */
+/* ЛИНИЯ */
 .line {
-  width: 200px;
+  width: 150px;
   height: 2px;
+  margin: 0 20px;
+  position: relative;
+  background: transparent;
+}
+
+.line::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 2px;
+  width: 100%;
   background: white;
   box-shadow: 0 0 10px white;
+
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: drawLine 1.2s ease forwards;
+}
+
+@keyframes drawLine {
+  to {
+    transform: scaleX(1);
+  }
 }
 
 /* СЕРДЕЧКИ */
@@ -117,23 +146,28 @@ button:hover {
 
 <div class="gallery">
 
-  <div class="card left">
-    <p>няшка</p>
-    <img src="IMG_20260523_201659_341.jpg">
+  <div class="row left">
+    <div class="card">
+      <p>няшка</p>
+      <img src="IMG_20260523_201659_341.jpg">
+    </div>
+    <div class="line"></div>
   </div>
 
-  <div class="line"></div>
-
-  <div class="card right">
-    <p>снежная красавица</p>
-    <img src="IMG_20260523_201702_994.jpg">
+  <div class="row right">
+    <div class="line"></div>
+    <div class="card">
+      <p>снежная красавица</p>
+      <img src="IMG_20260523_201702_994.jpg">
+    </div>
   </div>
 
-  <div class="line"></div>
-
-  <div class="card left">
-    <p>агентка</p>
-    <img src="IMG_20260523_201704_693.jpg">
+  <div class="row left">
+    <div class="card">
+      <p>агентка</p>
+      <img src="IMG_20260523_201704_693.jpg">
+    </div>
+    <div class="line"></div>
   </div>
 
 </div>

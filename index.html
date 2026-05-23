@@ -13,7 +13,7 @@ body {
   overflow-x: hidden;
 }
 
-/* верх */
+/* 🔝 верх */
 h1 {
   text-align: center;
   margin-top: 20px;
@@ -32,6 +32,7 @@ button {
   border: none;
   background: white;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 button:hover {
@@ -39,26 +40,34 @@ button:hover {
   transform: scale(1.1);
 }
 
-/* контейнер */
+/* 📦 галерея */
 .gallery {
   position: relative;
-  height: 900px;
+  height: 1000px;
   margin-top: 60px;
 }
 
-/* тексты */
+/* карточки */
 .item {
   position: absolute;
-  font-size: 20px;
+  width: 230px;
+  text-align: center;
   font-weight: bold;
 }
 
-/* позиции текста */
-.t1 { left: 20%; top: 80px; }
-.t2 { left: 55%; top: 350px; }
-.t3 { left: 25%; top: 620px; }
+.item img {
+  width: 100%;
+  border-radius: 15px;
+  border: 3px solid white;
+  box-shadow: 0 0 20px pink;
+}
 
-/* SVG линии */
+/* 📍 позиции */
+.t1 { left: 15%; top: 60px; }
+.t2 { left: 55%; top: 360px; }
+.t3 { left: 20%; top: 680px; }
+
+/* 🔗 линии */
 svg {
   position: absolute;
   width: 100%;
@@ -68,13 +77,14 @@ svg {
 
 path {
   stroke: white;
-  stroke-width: 2.5;
+  stroke-width: 3;
   fill: none;
   stroke-linecap: round;
+
   filter: drop-shadow(0 0 6px white);
 
-  stroke-dasharray: 1200;
-  stroke-dashoffset: 1200;
+  stroke-dasharray: 1500;
+  stroke-dashoffset: 1500;
 
   animation: draw 2.5s ease forwards;
 }
@@ -85,20 +95,22 @@ path {
   }
 }
 
-/* комплимент */
+/* 💬 нижний текст */
 .bottom {
   text-align: center;
   margin-top: 120px;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
 
-  color: white;
+  font-size: 20px;
   font-weight: bold;
+  color: white;
+
   text-shadow:
-    0 0 8px white,
+    0 0 10px white,
     0 0 20px white;
 }
 
-/* сакура */
+/* 🌸 сакура */
 .sakura {
   position: fixed;
   top: -10px;
@@ -128,18 +140,32 @@ path {
 
 <div class="gallery">
 
-  <!-- ТЕКСТЫ -->
-  <div class="item t1" id="t1">няшка</div>
-  <div class="item t2" id="t2">снежная красавица</div>
-  <div class="item t3" id="t3">агентка</div>
+  <!-- 1 -->
+  <div class="item t1" id="t1">
+    няшка
+    <img src="IMG_20260523_201659_341.jpg">
+  </div>
 
-  <!-- ЛИНИИ -->
+  <!-- 2 -->
+  <div class="item t2" id="t2">
+    снежная красавица
+    <img src="IMG_20260523_201702_994.jpg">
+  </div>
+
+  <!-- 3 -->
+  <div class="item t3" id="t3">
+    агентка
+    <img src="IMG_20260523_201704_693.jpg">
+  </div>
+
+  <!-- линии -->
   <svg id="svg"></svg>
 
 </div>
 
+<!-- 💖 текст внизу -->
 <div class="bottom">
-  Соня — это человек, который делает этот мир теплее и красивее ✨
+  Соня — это человек, который делает этот мир теплее, красивее и спокойнее ✨
 </div>
 
 <script>
@@ -153,26 +179,11 @@ function line(a, b, svg) {
   const x2 = r2.left + r2.width / 2;
   const y2 = r2.top;
 
-  const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
 
-  const d = `M ${x1} ${y1} C ${x1} ${y1 + 100}, ${x2} ${y2 - 100}, ${x2} ${y2}`;
+  const d = `M ${x1} ${y1} C ${x1} ${y1 + 120}, ${x2} ${y2 - 120}, ${x2} ${y2}`;
 
-  p.setAttribute("d", d);
+  path.setAttribute("d", d);
 
-  svg.appendChild(p);
+  svg.appendChild(path);
 }
-
-function draw() {
-  const svg = document.getElementById("svg");
-  svg.innerHTML = "";
-
-  line(document.getElementById("t1"), document.getElementById("t2"), svg);
-  line(document.getElementById("t2"), document.getElementById("t3"), svg);
-}
-
-window.onload = draw;
-window.onresize = draw;
-</script>
-
-</body>
-</html>

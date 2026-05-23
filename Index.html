@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Люблю Соню</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      color: white;
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 30px;
+      font-size: 28px;
+    }
+
+    .center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    button {
+      padding: 20px 40px;
+      font-size: 20px;
+      border: none;
+      border-radius: 10px;
+      background: white;
+      color: black;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: pink;
+      transform: scale(1.1);
+    }
+
+    /* Сердечки */
+    .heart {
+      position: absolute;
+      color: pink;
+      font-size: 20px;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10vh);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<h1>твой любимый Амир</h1>
+
+<div class="center">
+  <button onclick="window.location.href='https://t.me/Conechka22056'">
+    люблю соню
+  </button>
+</div>
+
+<script>
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💗";
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    heart.style.fontSize = (Math.random() * 10 + 15) + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 5000);
+  }
+
+  setInterval(createHeart, 200);
+</script>
+
+</body>
+</html>

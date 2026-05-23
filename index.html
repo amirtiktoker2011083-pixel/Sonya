@@ -13,7 +13,7 @@ body {
   overflow-x: hidden;
 }
 
-/* верх */
+/* кнопка */
 .center {
   display: flex;
   justify-content: center;
@@ -28,7 +28,6 @@ button {
   background: hotpink;
   color: white;
   cursor: pointer;
-  transition: 0.3s;
 }
 
 button:hover {
@@ -36,7 +35,7 @@ button:hover {
   box-shadow: 0 0 20px hotpink;
 }
 
-/* галерея */
+/* фотки */
 .gallery {
   margin-top: 80px;
   display: flex;
@@ -44,10 +43,8 @@ button:hover {
   gap: 100px;
 }
 
-/* карточки */
 .card {
   width: 260px;
-  text-align: center;
 }
 
 .card img {
@@ -57,7 +54,6 @@ button:hover {
   box-shadow: 0 0 25px pink;
 }
 
-/* позиции */
 .left {
   margin-left: 10%;
 }
@@ -67,34 +63,42 @@ button:hover {
   margin-right: 10%;
 }
 
-/* 🎵 ПЛЕЕР */
+/* 🎵 плеер */
 .player {
+  width: 320px;
+  margin: 120px auto 60px;
+  padding: 20px;
+  border-radius: 20px;
+
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+
+  box-shadow: 0 0 20px rgba(255,255,255,0.2);
   text-align: center;
-  margin-top: 120px;
-  margin-bottom: 60px;
 }
 
-/* линия */
-.line {
-  width: 200px;
-  height: 3px;
-  background: white;
-  margin: 20px auto;
-
-  box-shadow:
-    0 0 10px white,
-    0 0 20px white,
-    0 0 30px white;
-}
-
-/* текст */
 .playlist {
   font-size: 24px;
   font-weight: bold;
+  margin-bottom: 15px;
 
   text-shadow:
     0 0 10px white,
     0 0 20px white;
+}
+
+.track {
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 10px;
+  cursor: pointer;
+
+  background: rgba(255,255,255,0.1);
+  transition: 0.3s;
+}
+
+.track:hover {
+  background: rgba(255,255,255,0.2);
 }
 
 /* 🌸 сакура */
@@ -128,17 +132,14 @@ button:hover {
 <div class="gallery">
 
   <div class="card left">
-    <p>няшка</p>
     <img src="IMG_20260523_201659_341.jpg">
   </div>
 
   <div class="card right">
-    <p>снежная красавица</p>
     <img src="IMG_20260523_201702_994.jpg">
   </div>
 
   <div class="card left">
-    <p>агентка</p>
     <img src="IMG_20260523_201704_693.jpg">
   </div>
 
@@ -147,20 +148,41 @@ button:hover {
 <!-- 🎵 плеер -->
 <div class="player">
 
-  <!-- сам трек -->
-  <audio controls>
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
-
-  <!-- линия -->
-  <div class="line"></div>
-
-  <!-- текст -->
   <div class="playlist">playlist</div>
+
+  <div class="track" onclick="playMusic('music.mp3')">
+    mayle
+  </div>
+
+  <div class="track" onclick="playMusic('music1.mp3')">
+    ты похож на кота
+  </div>
+
+  <div class="track" onclick="playMusic('music2.mp3')">
+    ты не такая
+  </div>
+
+  <div class="track" onclick="playMusic('music3.mp3')">
+    у девчонок
+  </div>
+
+  <audio id="audio"></audio>
 
 </div>
 
 <script>
+function playMusic(src) {
+  const audio = document.getElementById("audio");
+
+  if (audio.src.includes(src) && !audio.paused) {
+    audio.pause();
+  } else {
+    audio.src = src;
+    audio.play();
+  }
+}
+
+/* 🌸 сакура */
 function sakura() {
   const el = document.createElement("div");
   el.className = "sakura";

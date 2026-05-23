@@ -13,7 +13,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ВЕРХ */
+/* верх */
 h1 {
   text-align: center;
   margin-top: 20px;
@@ -32,7 +32,6 @@ button {
   border: none;
   background: white;
   cursor: pointer;
-  transition: 0.3s;
 }
 
 button:hover {
@@ -40,7 +39,7 @@ button:hover {
   transform: scale(1.1);
 }
 
-/* ГАЛЕРЕЯ */
+/* контейнер */
 .gallery {
   position: relative;
   width: 100%;
@@ -48,7 +47,7 @@ button:hover {
   margin-top: 60px;
 }
 
-/* ТЕКСТЫ + ФОТО */
+/* карточки */
 .item {
   position: absolute;
   width: 220px;
@@ -62,12 +61,12 @@ button:hover {
   box-shadow: 0 0 15px pink;
 }
 
-/* позиции (ровные) */
+/* позиции */
 .i1 { left: 10%; top: 0; }
-.i2 { left: 60%; top: 280px; }
-.i3 { left: 15%; top: 560px; }
+.i2 { right: 10%; top: 280px; }
+.i3 { left: 10%; top: 560px; }
 
-/* SVG ЛИНИЯ */
+/* SVG линия поверх */
 svg {
   position: absolute;
   width: 100%;
@@ -75,20 +74,19 @@ svg {
   pointer-events: none;
 }
 
-/* красивая линия */
+/* линия */
 path {
   stroke: white;
-  stroke-width: 2.5;
+  stroke-width: 3;
   fill: none;
   stroke-linecap: round;
-  stroke-linejoin: round;
 
   filter: drop-shadow(0 0 6px white);
 
-  stroke-dasharray: 1200;
-  stroke-dashoffset: 1200;
+  stroke-dasharray: 1500;
+  stroke-dashoffset: 1500;
 
-  animation: draw 3s ease forwards;
+  animation: draw 2.5s ease forwards;
 }
 
 @keyframes draw {
@@ -97,7 +95,7 @@ path {
   }
 }
 
-/* 💬 КОМПЛИМЕНТ */
+/* комплимент */
 .bottom {
   text-align: center;
   margin-top: 120px;
@@ -113,7 +111,7 @@ path {
     0 0 25px white;
 }
 
-/* 🌸 САКУРА */
+/* сакура */
 .sakura {
   position: fixed;
   top: -10px;
@@ -143,36 +141,35 @@ path {
 
 <div class="gallery">
 
-  <!-- 1 -->
+  <!-- фото -->
   <div class="item i1">
     <p>няшка</p>
     <img src="IMG_20260523_201659_341.jpg">
   </div>
 
-  <!-- 2 -->
   <div class="item i2">
     <p>снежная красавица</p>
     <img src="IMG_20260523_201702_994.jpg">
   </div>
 
-  <!-- 3 -->
   <div class="item i3">
     <p>агентка</p>
     <img src="IMG_20260523_201704_693.jpg">
   </div>
 
-  <!-- 🔥 КРАСИВАЯ ТРАЕКТОРИЯ -->
+  <!-- 🔥 ПРАВИЛЬНЫЕ СОЕДИНЕНИЯ -->
   <svg viewBox="0 0 1000 900">
-    <path d="
-      M 180 120
-      Q 400 0, 600 320
-      Q 450 450, 200 620
-    "/>
+
+    <!-- из правого края 1 → левый край 2 -->
+    <path d="M 320 80 C 500 80, 500 280, 780 320" />
+
+    <!-- из левого края 2 → правый край 3 -->
+    <path d="M 780 320 C 500 420, 300 480, 320 620" />
+
   </svg>
 
 </div>
 
-<!-- 💬 НИЗ -->
 <div class="bottom">
   Соня — это человек, который делает этот мир теплее, спокойнее и красивее ✨
 </div>

@@ -13,7 +13,14 @@ body {
   overflow-x: hidden;
 }
 
-/* 🔝 верх */
+/* контейнер сайта */
+.wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* верх */
 h1 {
   text-align: center;
   margin-top: 20px;
@@ -32,7 +39,6 @@ button {
   border: none;
   background: white;
   cursor: pointer;
-  transition: 0.3s;
 }
 
 button:hover {
@@ -40,17 +46,17 @@ button:hover {
   transform: scale(1.1);
 }
 
-/* 📦 галерея */
+/* галерея */
 .gallery {
   position: relative;
-  height: 1000px;
+  height: 900px;
   margin-top: 60px;
 }
 
 /* карточки */
 .item {
   position: absolute;
-  width: 230px;
+  width: 220px;
   text-align: center;
   font-weight: bold;
 }
@@ -62,12 +68,12 @@ button:hover {
   box-shadow: 0 0 20px pink;
 }
 
-/* 📍 позиции */
-.t1 { left: 15%; top: 60px; }
-.t2 { left: 55%; top: 360px; }
-.t3 { left: 20%; top: 680px; }
+/* 🔥 нормальные позиции (ПК) */
+.t1 { left: 50px; top: 50px; }
+.t2 { right: 50px; top: 320px; }
+.t3 { left: 120px; top: 620px; }
 
-/* 🔗 линии */
+/* линии */
 svg {
   position: absolute;
   width: 100%;
@@ -81,7 +87,7 @@ path {
   fill: none;
   stroke-linecap: round;
 
-  filter: drop-shadow(0 0 6px white);
+  filter: drop-shadow(0 0 8px white);
 
   stroke-dasharray: 1500;
   stroke-dashoffset: 1500;
@@ -95,27 +101,29 @@ path {
   }
 }
 
-/* 💬 нижний текст */
+/* комплимент */
 .bottom {
   text-align: center;
-  margin-top: 120px;
+  margin-top: 100px;
   margin-bottom: 60px;
 
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
   color: white;
 
   text-shadow:
     0 0 10px white,
-    0 0 20px white;
+    0 0 25px white,
+    0 0 40px white;
 }
 
-/* 🌸 сакура */
+/* 🌸 САКУРА (УЛУЧШЕННАЯ) */
 .sakura {
   position: fixed;
   top: -10px;
-  color: pink;
   pointer-events: none;
+  z-index: 0;
+  opacity: 0.9;
   animation: fall linear forwards;
 }
 
@@ -130,6 +138,8 @@ path {
 
 <body>
 
+<div class="wrapper">
+
 <h1>твой любимый Амир</h1>
 
 <div class="center">
@@ -140,50 +150,81 @@ path {
 
 <div class="gallery">
 
-  <!-- 1 -->
   <div class="item t1" id="t1">
     няшка
     <img src="IMG_20260523_201659_341.jpg">
   </div>
 
-  <!-- 2 -->
   <div class="item t2" id="t2">
     снежная красавица
     <img src="IMG_20260523_201702_994.jpg">
   </div>
 
-  <!-- 3 -->
   <div class="item t3" id="t3">
     агентка
     <img src="IMG_20260523_201704_693.jpg">
   </div>
 
-  <!-- линии -->
   <svg id="svg"></svg>
 
 </div>
 
-<!-- 💖 текст внизу -->
 <div class="bottom">
   Соня — это человек, который делает этот мир теплее, красивее и спокойнее ✨
 </div>
 
+</div>
+
 <script>
-function line(a, b, svg) {
+function line(a, b, svg, container) {
   const r1 = a.getBoundingClientRect();
   const r2 = b.getBoundingClientRect();
+  const rc = container.getBoundingClientRect();
 
-  const x1 = r1.left + r1.width / 2;
-  const y1 = r1.bottom;
+  const x1 = r1.left + r1.width/2 - rc.left;
+  const y1 = r1.bottom - rc.top;
 
-  const x2 = r2.left + r2.width / 2;
-  const y2 = r2.top;
+  const x2 = r2.left + r2.width/2 - rc.left;
+  const y2 = r2.top - rc.top;
 
   const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
 
-  const d = `M ${x1} ${y1} C ${x1} ${y1 + 120}, ${x2} ${y2 - 120}, ${x2} ${y2}`;
-
+  const d = M ${x1} ${y1} C ${x1} ${y1+120}, ${x2} ${y2-120}, ${x2} ${y2};
   path.setAttribute("d", d);
 
   svg.appendChild(path);
 }
+
+function draw() {
+  const svg = document.getElementById("svg");
+  const container = document.querySelector(".gallery");
+
+  svg.innerHTML = "";
+
+  line(t1, t2, svg, container);
+  line(t2, t3, svg, container);
+}
+
+window.onload = draw;
+window.onresize = draw;
+
+/* 🌸 САКУРА НОРМАЛЬНАЯ */
+function sakura() {
+  const el = document.createElement("div");
+  el.classList.add("sakura");
+  el.innerHTML = "🌸";
+
+  el.style.left = Math.random() * 100 + "vw";
+  el.style.fontSize = (Math.random() * 18 + 12) + "px";
+  el.style.animationDuration = (Math.random() * 5 + 4) + "s";
+
+  document.body.appendChild(el);
+
+  setTimeout(() => el.remove(), 9000);
+}
+
+setInterval(sakura, 120);
+</script>
+
+</body>
+</html>

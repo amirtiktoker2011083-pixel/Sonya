@@ -13,7 +13,7 @@ body {
   overflow-x: hidden;
 }
 
-/* контейнер сайта */
+/* контейнер */
 .wrapper {
   max-width: 1000px;
   margin: 0 auto;
@@ -39,6 +39,7 @@ button {
   border: none;
   background: white;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 button:hover {
@@ -68,10 +69,10 @@ button:hover {
   box-shadow: 0 0 20px pink;
 }
 
-/* 🔥 нормальные позиции (ПК) */
-.t1 { left: 50px; top: 50px; }
-.t2 { right: 50px; top: 320px; }
-.t3 { left: 120px; top: 620px; }
+/* позиции */
+.t1 { left: 60px; top: 60px; }
+.t2 { right: 60px; top: 320px; }
+.t3 { left: 140px; top: 640px; }
 
 /* линии */
 svg {
@@ -117,13 +118,12 @@ path {
     0 0 40px white;
 }
 
-/* 🌸 САКУРА (УЛУЧШЕННАЯ) */
+/* 🌸 САКУРА */
 .sakura {
   position: fixed;
-  top: -10px;
+  top: -20px;
   pointer-events: none;
-  z-index: 0;
-  opacity: 0.9;
+  z-index: 9999;
   animation: fall linear forwards;
 }
 
@@ -208,15 +208,15 @@ function draw() {
 window.onload = draw;
 window.onresize = draw;
 
-/* 🌸 САКУРА НОРМАЛЬНАЯ */
+/* 🌸 САКУРА (НОРМАЛЬНАЯ) */
 function sakura() {
   const el = document.createElement("div");
-  el.classList.add("sakura");
+  el.className = "sakura";
   el.innerHTML = "🌸";
 
   el.style.left = Math.random() * 100 + "vw";
-  el.style.fontSize = (Math.random() * 18 + 12) + "px";
-  el.style.animationDuration = (Math.random() * 5 + 4) + "s";
+  el.style.fontSize = (Math.random() * 20 + 20) + "px";
+  el.style.animationDuration = (Math.random() * 4 + 5) + "s";
 
   document.body.appendChild(el);
 
